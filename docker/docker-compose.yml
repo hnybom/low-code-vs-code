@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  low-code-postgres:
+    container_name: low-code-postgres
+    restart: always
+    image: postgres:latest
+    volumes:
+      - ./database:/var/lib/postgresql/data
+      - ./shared:/shared
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_USER: lowcode
+      POSTGRES_PASSWORD: vscode
+      POSTGRES_DB: lowcodedb

@@ -1,6 +1,7 @@
 package fi.solita.henriny.lowcodecode.challenge.config
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -19,6 +20,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations
 import org.springframework.jdbc.support.JdbcTransactionManager
 import org.springframework.data.relational.core.mapping.RelationalPersistentProperty
+import com.zaxxer.hikari.HikariDataSource
+
+import com.zaxxer.hikari.HikariConfig
 
 @Configuration
 class JdbcConfig : AbstractJdbcConfiguration() {
@@ -26,14 +30,14 @@ class JdbcConfig : AbstractJdbcConfiguration() {
     @Autowired
     lateinit var environment: Environment
 
+    @Value("\${spring.datasource.url}")
+    private lateinit var dbUrl: String
+
     @Bean
     fun postgresDataSource(): DataSource {
-        return DriverManagerDataSource().apply {
-            setDriverClassName(environment.getProperty("database.driverClassName")!!)
-            url = environment.getProperty("datasource.url")
-            username = environment.getProperty("datasource.username")
-            password = environment.getProperty("datasource.password")
-        }
+        val config = HikariConfig()
+        config.jdbcUrl = dbUrl
+        return HikariDataSource(config)
     }
 
     @Bean

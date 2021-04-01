@@ -18,6 +18,16 @@
 		<kotlin.version>1.4.30</kotlin.version>
 		<vaadin.version>19.0.1</vaadin.version>
 	</properties>
+
+	<profiles>
+		<profile>
+		<id>production</id>
+			<properties>
+				<vaadin.productionMode>true</vaadin.productionMode>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

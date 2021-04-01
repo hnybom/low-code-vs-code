@@ -7,6 +7,7 @@ import fi.solita.henriny.lowcodecode.challenge.repository.model.HighScore
 import org.slf4j.LoggerFactory
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
+import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
 import org.springframework.util.ResourceUtils
 import java.time.ZoneId
@@ -27,7 +28,7 @@ class GamePopulator(val gameRepository: GameRepository) {
 
         val faker = Faker()
 
-        csvReader().open(ResourceUtils.getFile("classpath:video_games.csv")) {
+        csvReader().open(ClassPathResource("classpath:video_games.csv").file) {
             readAllAsSequence().filterIndexed { index, _ -> index != 0 }.map { row: List<String> ->
                 Game(
                     id = null,

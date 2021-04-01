@@ -4,7 +4,7 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.github.javafaker.Faker
 import fi.solita.henriny.lowcodecode.challenge.repository.model.Game
 import fi.solita.henriny.lowcodecode.challenge.repository.model.HighScore
-import org.springframework.context.ApplicationListener
+import org.slf4j.LoggerFactory
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
@@ -14,10 +14,16 @@ import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 @Component
-class GamePopulator(val gameRepository: GameRepository) : ApplicationListener<ContextRefreshedEvent> {
+class GamePopulator(val gameRepository: GameRepository) {
 
-    override fun onApplicationEvent(event: ContextRefreshedEvent) {
-        if (gameRepository.count() == 0L) return
+    private val log = LoggerFactory.getLogger(GamePopulator::class.java)
+
+    @EventListener
+    fun onApplicationEvent(event: ContextRefreshedEvent) {
+        if (gameRepository.count() != 0L) {
+            log.info("Game DB is not empty skip population.")
+            return
+        }
 
         val faker = Faker()
 

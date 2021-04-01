@@ -1,18 +1,17 @@
-package fi.solita.henriny.lowcodecode.challenge.ui.view.dialog
+package fi.solita.henriny.lowcodecode.challenge.ui.component.form
 
 import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.component.dependency.CssImport
 import com.vaadin.flow.component.orderedlayout.FlexComponent
 import com.vaadin.flow.data.binder.BeanValidationBinder
 import com.vaadin.flow.data.binder.Binder
-import com.vaadin.flow.data.binder.ValidationResult
 import fi.solita.henriny.lowcodecode.challenge.service.GamesService
 import fi.solita.henriny.lowcodecode.challenge.ui.event.EventBroker
 import fi.solita.henriny.lowcodecode.challenge.ui.event.HighScoreAdded
 import fi.solita.henriny.lowcodecode.challenge.ui.model.HighscoreUIModel
 import java.time.LocalDateTime
 
-@CssImport("./styles/highscoresdialog/form.css")
+
 class HighScoreForm(
     private val gameId: Long,
     private val gamesService: GamesService

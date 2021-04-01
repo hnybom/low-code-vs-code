@@ -18,5 +18,4 @@ object DataProviders {
             { pagingAndSortingRepository.count().toInt() }
         )
     }
-
 }

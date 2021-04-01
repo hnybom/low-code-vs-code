@@ -2,17 +2,15 @@ package fi.solita.henriny.lowcodecode.challenge.populate
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.github.javafaker.Faker
-import fi.solita.henriny.lowcodecode.challenge.repository.GamesRepository
+import fi.solita.henriny.lowcodecode.challenge.repository.GameRepository
 import fi.solita.henriny.lowcodecode.challenge.repository.model.Game
 import fi.solita.henriny.lowcodecode.challenge.repository.model.HighScore
-import org.joda.time.DateTime
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.util.ResourceUtils
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -23,11 +21,11 @@ import kotlin.random.Random
 class PopulateDB {
 
     @Autowired
-    lateinit var gamesRepository: GamesRepository
+    lateinit var gameRepository: GameRepository
 
     @Test
     fun populate() {
-        if(gamesRepository.count() >0) return
+        if(gameRepository.count() >0) return
 
         val faker = Faker()
 
@@ -55,9 +53,8 @@ class PopulateDB {
                     }.toSet()
                 )
             }.forEach {
-                gamesRepository.save(it)
+                gameRepository.save(it)
             }
         }
     }
-
 }

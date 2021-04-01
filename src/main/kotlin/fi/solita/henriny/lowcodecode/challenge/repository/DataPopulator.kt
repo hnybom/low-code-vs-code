@@ -4,8 +4,7 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.github.javafaker.Faker
 import fi.solita.henriny.lowcodecode.challenge.repository.model.Game
 import fi.solita.henriny.lowcodecode.challenge.repository.model.HighScore
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import org.springframework.context.ApplicationListener
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
@@ -15,11 +14,11 @@ import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 @Component
-class GamePopulator(val gameRepository: GameRepository) {
+class GamePopulator(val gameRepository: GameRepository) : ApplicationListener<ContextRefreshedEvent> {
 
-    @EventListener
-    fun onApplicationEvent(event: ContextRefreshedEvent) {
+    override fun onApplicationEvent(event: ContextRefreshedEvent) {
         if (gameRepository.count() == 0L) return
+
         val faker = Faker()
 
         csvReader().open(ResourceUtils.getFile("classpath:video_games.csv")) {
@@ -50,7 +49,7 @@ class GamePopulator(val gameRepository: GameRepository) {
                 gameRepository.save(it)
             }
         }
-        
+
     }
 
 }

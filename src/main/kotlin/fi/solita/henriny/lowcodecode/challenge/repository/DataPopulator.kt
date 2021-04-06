@@ -28,7 +28,7 @@ class GamePopulator(val gameRepository: GameRepository) {
 
         val faker = Faker()
 
-        csvReader().open(ClassPathResource("video_games.csv").file) {
+        csvReader().open(ClassPathResource("video_games.csv", this::class.java.classLoader).file) {
             readAllAsSequence().filterIndexed { index, _ -> index != 0 }.map { row: List<String> ->
                 Game(
                     id = null,

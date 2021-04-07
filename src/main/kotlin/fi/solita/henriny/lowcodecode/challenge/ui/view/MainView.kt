@@ -42,7 +42,11 @@ class MainView(
                             highScoreDialog.open()
                         }
 
-                        EventBroker.registerForEvents(HighScoreAdded::class.java) { this.refresh() }
+                        EventBroker.registerForEvents(HighScoreAdded::class.java) {
+                            ui.get().access {
+                                this.refresh()
+                            }
+                        }
                     }
 
                 }

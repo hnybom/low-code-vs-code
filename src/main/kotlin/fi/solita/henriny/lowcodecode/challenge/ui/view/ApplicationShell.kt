@@ -12,6 +12,7 @@ import com.vaadin.flow.server.PWA
     name = "Low code challenge",
     shortName = "LCC"
 )
+@Push
 class ApplicationShell : AppShellConfigurator {
 
 }

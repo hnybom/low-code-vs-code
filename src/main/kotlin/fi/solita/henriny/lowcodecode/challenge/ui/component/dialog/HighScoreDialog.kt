@@ -7,12 +7,15 @@ import com.vaadin.flow.component.dialog.Dialog
 import com.vaadin.flow.component.grid.GridSortOrderBuilder
 import com.vaadin.flow.component.orderedlayout.FlexComponent
 import com.vaadin.flow.data.provider.DataProvider
+import com.vaadin.flow.data.renderer.LocalDateTimeRenderer
 import fi.solita.henriny.lowcodecode.challenge.repository.model.Game
 import fi.solita.henriny.lowcodecode.challenge.repository.model.HighScore
 import fi.solita.henriny.lowcodecode.challenge.service.GamesService
 import fi.solita.henriny.lowcodecode.challenge.ui.component.form.HighScoreForm
 import fi.solita.henriny.lowcodecode.challenge.ui.event.EventBroker
 import fi.solita.henriny.lowcodecode.challenge.ui.event.HighScoreAdded
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @CssImport("./styles/highscoresdialog/form.css")
 class HighScoreDialog(
@@ -35,7 +38,14 @@ class HighScoreDialog(
                 val grid = grid(dataProvider = DataProvider.ofCollection(game.getSortedScores())) {
                     addColumn(HighScore::gamerName).setHeader("Gamer name").setSortProperty("gamerName")
                     val scoreCol = addColumn(HighScore::score).setHeader("Score").setSortProperty("score")
-                    addColumn(HighScore::created).setHeader("High score time").setSortProperty("created")
+                    addColumn(
+                        LocalDateTimeRenderer(
+                            HighScore::created,
+                            DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss", Locale.forLanguageTag("fi"))
+                        )
+                    ).setHeader("High score time").setSortProperty("created")
+
+
                     sort(
                         GridSortOrderBuilder<HighScore>().thenDesc(scoreCol).build()
                     )
@@ -49,8 +59,11 @@ class HighScoreDialog(
                     ) {
                         if (it.game.id == game.id) {
                             game = it.game
-                            grid.setItems(DataProvider.ofCollection(game.getSortedScores()))
-                            grid.refresh()
+                            ui.get().access {
+                                grid.setItems(DataProvider.ofCollection(game.getSortedScores()))
+                                grid.refresh()
+                            }
+
                         }
                     }
                 }

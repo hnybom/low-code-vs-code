@@ -12,7 +12,7 @@ import fi.solita.henriny.lowcodecode.challenge.ui.component.dialog.HighScoreDial
 import fi.solita.henriny.lowcodecode.challenge.ui.data.DataProviders
 import fi.solita.henriny.lowcodecode.challenge.ui.event.EventBroker
 import fi.solita.henriny.lowcodecode.challenge.ui.event.HighScoreAdded
-import java.util.Locale
+import java.util.*
 
 @UIScope
 @Route("/")

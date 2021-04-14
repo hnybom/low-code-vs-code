@@ -38,7 +38,7 @@ class GamePopulator(val gameRepository: GameRepository) {
                     rating = row[13],
                     releaseYear = row[15].toInt(),
                     reviewScore = row[9].toInt(),
-                    highScores = (0..Random.nextInt(100)).map {
+                    highScores = (0..Random.nextInt(5)).map {
                         HighScore(
                             id = null,
                             version = null,

@@ -27,7 +27,16 @@ class MainView(
             content {
                 verticalLayout {
                     h2("Games")
-                    grid(dataProvider = DataProviders.getDataProvider(gameRepository)) {
+                    val dataProvider = DataProviders.getDataProvider(
+                        gameRepository,
+                        gameRepository::findByNameContainingIgnoreCase
+                    )
+                    val search = textField("Search for a game") {
+                        width = "30%"
+                    }
+                    val grid = grid(
+                        dataProvider = dataProvider
+                    ) {
                         addColumn(Game::name).setHeader("Name").setSortProperty("name")
                         addColumn(Game::platform).setHeader("Platform").setSortProperty("platform")
                         addColumn(Game::publisher).setHeader("Publisher").setSortProperty("publisher")
@@ -49,6 +58,10 @@ class MainView(
                         }
                     }
 
+                    search.addValueChangeListener {
+                        dataProvider?.setFilter(it.value)
+                        grid.refresh()
+                    }
                 }
             }
         }

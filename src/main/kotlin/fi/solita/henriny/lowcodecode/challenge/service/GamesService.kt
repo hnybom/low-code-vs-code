@@ -19,7 +19,6 @@ class GamesService(val gameRepository: GameRepository) {
         val newGame = game.copy(
             highScores = game.highScores + HighScore(
                 id = null,
-                version = null,
                 game = null,
                 gamerName = highScoreUIModel.gamerName!!,
                 score = highScoreUIModel.score!!.toLong(),

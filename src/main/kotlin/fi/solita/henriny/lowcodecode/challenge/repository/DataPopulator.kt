@@ -41,7 +41,6 @@ class GamePopulator(val gameRepository: GameRepository) {
                     highScores = (0..Random.nextInt(5)).map {
                         HighScore(
                             id = null,
-                            version = null,
                             game = null,
                             gamerName = faker.name().fullName(),
                             score = Random.nextLong(9999999L),

@@ -1,7 +1,6 @@
 package fi.solita.henriny.lowcodecode.challenge.repository.model
 
 import org.springframework.data.annotation.Id
-import org.springframework.data.annotation.Version
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
@@ -10,8 +9,6 @@ import java.time.LocalDateTime
 data class HighScore(
     @Id
     val id: Long?,
-    @Version
-    val version: Long?,
     @Column("game_id")
     val game: Long?,
     @Column("gamer_name")

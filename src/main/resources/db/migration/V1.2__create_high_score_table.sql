@@ -1,6 +1,5 @@
 CREATE TABLE high_scores (
 	id serial,
-    version INTEGER,
     gamer_name VARCHAR(128) NOT NULL,
 	score INTEGER NOT NULL,
     created TIMESTAMP NOT NULL,

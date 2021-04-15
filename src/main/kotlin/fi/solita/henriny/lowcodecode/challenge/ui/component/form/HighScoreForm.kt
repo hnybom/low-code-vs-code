@@ -32,15 +32,16 @@ class HighScoreForm(
 
                 integerField ("Score") {
                     bind(binder)
-                        .withValidator({ score -> score > 0}, "Score needs to be larger than 0")
+                        .withValidator({ score -> score ?: 0 > 0 }, "Score needs to be larger than 0")
                         .bind("score")
                 }
 
                 dateTimePicker("Created") {
                     bind(binder)
                         .withValidator(
-                            { created -> created != null && created.isBefore(LocalDateTime.now())},
-                            "Time cannot be in the future or empty")
+                            { created -> created?.isBefore(LocalDateTime.now()) ?: false },
+                            "Time cannot be in the future or empty"
+                        )
                         .bind("created")
                 }
 
@@ -55,7 +56,6 @@ class HighScoreForm(
                     justifyContentMode = FlexComponent.JustifyContentMode.END
                     setWidthFull()
                 }
-
             }
         }
     }

@@ -8,10 +8,8 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface GameRepository : PagingAndSortingRepository<Game, Long> {
-
     fun findByNameContainingIgnoreCase(name: String, pageable: Pageable): List<Game>
 
     @Query("select * from games where name like :name and review_score >= :minScore")
-    fun findByNameAndMinimumScore(name: String, minScore: Int)
-
+    fun findByNameAndMinimumScore(name: String, minScore: Int): List<Game>
 }

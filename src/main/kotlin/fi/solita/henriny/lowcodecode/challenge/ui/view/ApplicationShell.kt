@@ -13,6 +13,4 @@ import com.vaadin.flow.server.PWA
     shortName = "LCC"
 )
 @Push
-class ApplicationShell : AppShellConfigurator {
-
-}
+class ApplicationShell : AppShellConfigurator
